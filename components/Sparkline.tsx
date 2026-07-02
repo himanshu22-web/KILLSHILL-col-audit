@@ -7,8 +7,9 @@ export function Sparkline({ values }: { values: number[] }) {
     return <span className="text-xs text-base-500">—</span>;
   }
   const data = values.map((v, i) => ({ i, v }));
-  const trendUp = values[values.length - 1] >= values[0];
-
+  const lastValue = values[values.length - 1] ?? 0;
+  const firstValue = values[0] ?? 0;
+  const trendUp = lastValue >= firstValue;
   return (
     <div className="h-8 w-20">
       <ResponsiveContainer width="100%" height="100%">
