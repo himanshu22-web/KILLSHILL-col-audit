@@ -66,9 +66,19 @@ function PageContent() {
     if (isRefresh) setIsRefreshing(true);
     setError(null);
     try {
-      const [kolsData, signalsData] = await Promise.all([fetchKols(), fetchSignals()]);
-      setKols(kolsData);
-      setSignals(signalsData);
+     const [kolsData, signalsData] = await Promise.all([fetchKols(), fetchSignals()]);
+
+const enrichedKols = kolsData.map((kol) => {
+  const kolSignals = signalsData
+    .filter((s) => s.kolId === kol.id)
+    .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
+    .slice(-10)
+    .map((s) => s.roi);
+  return { ...kol, recentRoi: kolSignals };
+});
+
+setKols(enrichedKols);
+setSignals(signalsData);
       setLastUpdated(new Date());
       if (isRefresh) toast.success("KOL data refreshed");
     } catch (err) {
