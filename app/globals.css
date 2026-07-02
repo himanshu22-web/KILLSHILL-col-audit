@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  --color-base-950: #08090b;
+  --color-base-900: #0c0d10;
+  --color-base-850: #131417;
+  --color-base-800: #191b1f;
+  --color-base-700: #24262c;
+  --color-base-600: #34373f;
+  --color-base-500: #565a64;
+  --color-base-400: #8b909a;
+  --color-base-300: #b4b8c0;
+  --color-base-100: #f1f2f4;
+
+  --color-signal-up: #00d992;
+  --color-signal-up-dim: #00d99226;
+  --color-signal-down: #ff4f5e;
+  --color-signal-down-dim: #ff4f5e26;
+  --color-signal-amber: #ffb020;
+  --color-signal-amber-dim: #ffb02026;
+
+  --color-accent: #6ee7ff;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-base-950);
+  color: var(--color-base-100);
+  font-family: var(--font-sans);
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(110, 231, 255, 0.05), transparent 40%),
+    radial-gradient(circle at 85% 10%, rgba(0, 217, 146, 0.04), transparent 35%);
+  background-attachment: fixed;
+}
+
+.font-mono-tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-base-950);
+}
+
+/* Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-base-600) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-base-600);
+  border-radius: 4px;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--color-base-800) 0%, var(--color-base-700) 50%, var(--color-base-800) 100%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-dot, .skeleton, * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
