@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { Header } from "@/components/Header";
@@ -11,7 +11,7 @@ import { fetchKols, fetchSignals } from "@/lib/api";
 import { Kol, Signal, SortDirection, SortField } from "@/lib/types";
 import { useKolAuditStore } from "@/lib/store";
 
-export default function Page() {
+function PageContent() {
   const [kols, setKols] = useState<Kol[]>([]);
   const [signals, setSignals] = useState<Signal[]>([]);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
@@ -115,5 +115,12 @@ export default function Page() {
 
       <SignalDrawer open={drawerOpen} onClose={closeDrawer} kol={selectedKol} signals={signals} />
     </main>
+  );
+}
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <PageContent />
+    </Suspense>
   );
 }
