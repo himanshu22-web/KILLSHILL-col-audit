@@ -26,9 +26,9 @@ function normalizeKol(raw: any, index: number): Kol {
     id: String(pick(raw, ["id", "kolId", "_id"], `kol-${index}`)),
     handle: String(pick(raw, ["handle", "username", "name"], "unknown")),
     avatarUrl: pick(raw, ["avatarUrl", "avatar", "avatar_url", "image"], null),
-    accuracy: Number(pick(stats, ["accuracy", "accuracyPct", "accuracy_percent"], 0)),
+    accuracy: Number(pick(stats, ["accuracy_pct", "accuracy", "accuracyPct"], 0)),
     totalSignals: Number(pick(stats, ["totalSignals", "total_signals", "signalCount"], 0)),
-    avgRoi: Number(pick(stats, ["avgRoi", "avgRoiPct", "avg_roi", "averageRoi"], 0)),
+    avgRoi: Number(pick(stats, ["avg_roi_pct", "avgRoi", "avgRoiPct", "avg_roi", "averageRoi"], 0)),
     lastSignalAt: String(
       pick(stats, ["lastSignalAt", "last_signal_at", "lastSignalTimestamp"], new Date().toISOString())
     ),
